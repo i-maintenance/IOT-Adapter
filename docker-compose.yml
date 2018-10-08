@@ -3,9 +3,13 @@ version: '3.3'
 services:
   adapter:
     image: 127.0.0.1:5001/iot-adapter
-    build: iot-adapter/
-#    env_file:
-#      - .env
+    build:
+      context: iot-adapter/
+      args:
+      - LIBRDKAFKA_VERSION=$LIBRDKAFKA_VERSION
+      - CONFLUENT_KAFKA_VERSION=$CONFLUENT_KAFKA_VERSION
+    env_file:
+      - .env
     networks:
       - iot-adapter
     deploy:
@@ -21,7 +25,6 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
-
 
 # Network
 networks:

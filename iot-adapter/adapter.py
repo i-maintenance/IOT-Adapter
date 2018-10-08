@@ -29,7 +29,8 @@ __date__ = "4 Dezember 2017"
 __email__ = "christoph.schranz@salzburgresearch.at"
 __status__ = "Development"
 
-MQTT_BROKER = "il050.salzburgresearch.at"
+MQTT_BROKER = os.getenv('MQTT_BROKER', "il050.salzburgresearch.at")
+MQTT_PORT = int(os.getenv('MQTT_PORT', "1883"))
 
 LOGSTASH_HOST = os.getenv('LOGSTASH_HOST', 'il060')
 LOGSTASH_PORT = int(os.getenv('LOGSTASH_PORT', '5000'))
@@ -82,8 +83,8 @@ def define_mqtt_statemachine():
     client.on_disconnect = on_disconnect
     client.on_message = on_message
 
-    client.connect(MQTT_BROKER, 1883, 60)
-    logger.info("Connection to {} on port {} established".format(MQTT_BROKER, 1883))
+    client.connect(MQTT_BROKER, MQTT_PORT, 60)
+    logger.info("Connection to {} on port {} established".format(MQTT_BROKER, MQTT_PORT))
     client.loop_forever()
 
 
@@ -174,7 +175,7 @@ def mqtt_to_sensorthings(msg):
 
 def fetch_multiple_data(payload):
     """
-    Previously used for parsing kafka messages
+    Previously used for parsing kafka messages, this is highly specialized for the usecase
     :param payload: old kafka message
     :return: datapoint dictionary
     """
