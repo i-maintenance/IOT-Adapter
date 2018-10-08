@@ -24,22 +24,23 @@ import paho.mqtt.client as mqtt
 from logstash import TCPLogstashHandler
 
 __author__ = "Salzburg Research"
-__version__ = "1.2"
-__date__ = "4 Dezember 2017"
+__version__ = "1.3"
+__date__ = "08 October 2018"
 __email__ = "christoph.schranz@salzburgresearch.at"
 __status__ = "Development"
 
 MQTT_BROKER = os.getenv('MQTT_BROKER', "il050.salzburgresearch.at")
 MQTT_PORT = int(os.getenv('MQTT_PORT', "1883"))
 
-LOGSTASH_HOST = os.getenv('LOGSTASH_HOST', 'il060')
+LOGSTASH_HOST = os.getenv('LOGSTASH_HOST', '192.168.48.60')
 LOGSTASH_PORT = int(os.getenv('LOGSTASH_PORT', '5000'))
 
 # kafka parameters
 # topics and servers should be of the form: "topic1,topic2,..."
 KAFKA_TOPIC = os.getenv('KAFKA_TOPIC', "SensorData")
-BOOTSTRAP_SERVERS_default = os.getenv('BOOTSTRAP_SERVERS_default', 'il061,il062,il063')
-KAFKA_GROUP_ID = os.getenv('KAFKA_GROUP_ID', "db-adapter")
+BOOTSTRAP_SERVERS_default = os.getenv('BOOTSTRAP_SERVERS_default',
+                                      '192.168.48.61:9092,192.168.48.62:9092,192.168.48.63:9092')
+KAFKA_GROUP_ID = os.getenv('KAFKA_GROUP_ID', "iot-adapter")
 
 # The mapping between incoming and outgoing metrics is defined by
 # the json file located on:
@@ -70,6 +71,12 @@ ch.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 logger.addHandler(ch)
+
+logger.info("Starting the logstash adapter with the settings: MQTT_BROKER: {} , MQTT_PORT: {} , KAFKA_TOPIC: {} ,"
+            "BOOTSTRAP_SERVERS_default: {} , KAFKA_GROUP_ID: {} , LOGSTASH_HOST: {} , LOGSTASH_PORT: {}"
+            .format(MQTT_BROKER, MQTT_PORT, KAFKA_TOPIC, BOOTSTRAP_SERVERS_default, KAFKA_GROUP_ID,
+                    LOGSTASH_HOST, LOGSTASH_PORT))
+
 
 
 def define_mqtt_statemachine():
