@@ -1,11 +1,11 @@
 FROM python:3.6
 # not using onbuild, because changed code results in installation time
 
-MAINTAINER Johannes Innerbichler <j.innerbichler@gmail.com>
+MAINTAINER Christoph Schranz <christoph.schranz@salzburgresearch.at>
 
 # test internet connection and dns settings. If apt-get update fails, restart
 # docker service, check internet connection and dns settings in /etc/docker/daemon.json
-RUN apt-get update
+#RUN apt-get update
 
 # install the official librdkafka client written in C
 ENV LIBRDKAFKA_VERSION 0.11.1
@@ -19,10 +19,10 @@ ENV CONFLUENT_KAFKA_VERSION 0.9.1.2
 RUN pip install confluent-kafka==${CONFLUENT_KAFKA_VERSION}
 
 
-# Copy the content of this folder into the hosts home directory.
-ADD . .
+# Copy the content of this folder into the hosts home directory and install the requirements first.
+ADD requirements.txt .
 RUN pip install -r requirements.txt
-
+ADD . .
 
 # setup proper configuration
 ENV PYTHONPATH .
