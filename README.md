@@ -2,9 +2,9 @@
 Connecting MQTT services with the i-Maintenance Messaging System.
 
 
-
 This component subscribes to topics from the Internet of Things Protokoll MQTT and
-forwards them to the the Apache Kafka message broker.
+forwards them to the the Apache Kafka message broker, based on semantic interpretation
+from a SensorThings Server.
 
 
 The Kafka Adapter based on the components:
@@ -30,11 +30,11 @@ The Kafka Adapter based on the components:
 
 ## Deployment
 
-The IOT-Adapter uses the optionally Sensorthings to semantically describe
+The IOT-Adapter uses optionally Sensorthings to semantically describe
 the forwarded data. The later consumage of the sensor data with the
 suggested [DB-Adapter](https://github.com/i-maintenance/DB-Adapter/)
-works best with a running and feeded [SensorThings](https://github.com/i-maintenance/SensorThingsClient)
- Client.
+works best with a running and feeded 
+[SensorThings](https://github.com/i-maintenance/SensorThingsClient) Client.
 
 
 
@@ -43,7 +43,7 @@ Using `docker-compose`:
 
 ```bash
 cd /iot-adapter
-sudo docker-compose up --build -d
+docker-compose up --build -d
 ```Trouble-shooting
 
 The flag `-d` stands for running it in background (detached mode):
@@ -52,7 +52,7 @@ The flag `-d` stands for running it in background (detached mode):
 Watch the logs with:
 
 ```bash
-sudo docker-compose logs -f
+docker-compose logs -f
 ```
 
 
@@ -62,7 +62,7 @@ Using `docker stack`:
 If not already done, add a regitry instance to register the image
 ```bash
 cd /iot-Adapter
-sudo docker service create --name registry --publish published=5001,target=5000 registry:2
+docker service create --name registry --publish published=5001,target=5000 registry:2
 curl 127.0.0.1:5001/v2/
 ```
 This should output `{}`:
@@ -72,23 +72,23 @@ If running with docker-coTrouble-shootingmpose works, push the image in order to
 
 ```bash
 cd ../iot-Adapter
-sudo docker-compose build
-sudo docker-compose push
+docker-compose build
+docker-compose push
 ```
 
 Actually deploy the service in the stack:
 ```bash
 cd ../IOT-Adapter
-sudo docker stack deploy --compose-file docker-compose.yml iot-adapter
+docker stack deploy --compose-file docker-compose.yml iot-adapter
 ```
 
 
 Watch if everything worked fine with:
 
 ```bash
-sudo docker service ls
-sudo docker stack ps iot-adapter
-sudo docker service logs iot-adapter_adapter -f
+docker service ls
+docker stack ps iot-adapter
+docker service logs iot-adapter_adapter -f
 ```
 
 
