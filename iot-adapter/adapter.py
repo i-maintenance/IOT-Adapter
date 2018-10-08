@@ -37,9 +37,9 @@ LOGSTASH_PORT = int(os.getenv('LOGSTASH_PORT', '5000'))
 
 # kafka parameters
 # topics and servers should be of the form: "topic1,topic2,..."
-KAFKA_TOPIC = "SensorData"
-BOOTSTRAP_SERVERS_default = 'il061,il062,il063'
-KAFKA_GROUP_ID = "db-adapter"
+KAFKA_TOPIC = os.getenv('KAFKA_TOPIC', "SensorData")
+BOOTSTRAP_SERVERS_default = os.getenv('BOOTSTRAP_SERVERS_default', 'il061,il062,il063')
+KAFKA_GROUP_ID = os.getenv('KAFKA_GROUP_ID', "db-adapter")
 
 # The mapping between incoming and outgoing metrics is defined by
 # the json file located on:
@@ -100,7 +100,6 @@ def on_message(client, userdata, msg):
     :return:
     """
     # print("New MQTT message: {}, {}".format(msg.topic, msg.payload))
-
     datapoints = mqtt_to_sensorthings(msg)
 
     if datapoints is None:
