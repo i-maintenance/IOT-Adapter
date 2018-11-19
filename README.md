@@ -68,33 +68,29 @@ curl 127.0.0.1:5001/v2/
 This should output `{}`:
 
 
-If running with docker-coTrouble-shootingmpose works, push the image in order to make the customized image runnable in the stack
+If running with docker-coTrouble-shootingmpose works, push the image in
+order to make the customized image runnable in the stack and deploy it:
 
 ```bash
 cd ../iot-Adapter
-docker-compose build
-docker-compose push
-```
-
-Actually deploy the service in the stack:
-```bash
-cd ../IOT-Adapter
-docker stack deploy --compose-file docker-compose.yml iot-adapter
+./start-adapter.sh
 ```
 
 
 Watch if everything worked fine with:
 
 ```bash
-docker service ls
-docker stack ps iot-adapter
-docker service logs iot-adapter_adapter -f
+./show-adapter.sh
 ```
 
 
 ## Configuration
 
-The IOT-Adapter uses a Whitelist (`datastreams.json`) as well as a
+Most configurations are done in the `.env` file in which all environment
+variables are set.
+
+For more advanced options, the IOT-Adapter uses a Whitelist
+(`datastreams.json`) as well as a
 Blacklist (`blacklist.json`). The first one lists any data which should be
 forwarded into the i-Maintenance Messaging System with its corresponding
 SensorThings - Datastream-Id. The later lists sensordata that should be
