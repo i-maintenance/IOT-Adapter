@@ -32,7 +32,7 @@ __status__ = "Development"
 MQTT_BROKER = os.getenv('MQTT_BROKER', "il050.salzburgresearch.at")
 MQTT_PORT = int(os.getenv('MQTT_PORT', "1883"))
 
-LOGSTASH_HOST = os.getenv('LOGSTASH_HOST', '192.168.48.60')
+LOGSTASH_HOST = os.getenv('LOGSTASH_HOST', '192.168.48.71')
 LOGSTASH_PORT = int(os.getenv('LOGSTASH_PORT', '5000'))
 
 # kafka parameters
