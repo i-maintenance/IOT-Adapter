@@ -154,7 +154,8 @@ def mqtt_to_sensorthings(msg):
     try:
         payload = json.loads(msg.payload.decode("utf-8"))
     except Exception as e:
-        logger.warning("Couldn't parse message: {}".format(e))
+        logger.warning("Couldn't parse message: {}".format(msg))
+        logger.warning("{}".format(e))
         return
 
     if type(payload) in [type(0), type(0.0)]:
