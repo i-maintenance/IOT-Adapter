@@ -1,9 +1,9 @@
 {
-    "rasp02/mem": 0,
-    "rasp02/cpu": 0,
-    "rasp02/cpu-temp": 0,
-    "rasp02/net-wlan0": 0,
-    "rasp02/printing": 0,
+    "il030/mem": 0,
+    "il030/cpu": 0,
+    "il030/cpu-temp": 0,
+    "il030/net-wlan0": 0,
+    "il030/printing": 0,
 
     "il032/mem": 0,
     "il032/cpu": 0,
@@ -12,12 +12,12 @@
     "il032/net-eth0": 0,
     "il032/fanstatus": 0,
 
-    "rasp02/posE": 0,
-    "rasp02/posX": 0,
-    "rasp02/posY": 0,
-    "rasp02/posZ": 0,
-    "rasp02/targetNozzle": 0,
-    "rasp02/targetBed": 0,
+    "il030/posE": 0,
+    "il030/posX": 0,
+    "il030/posY": 0,
+    "il030/posZ": 0,
+    "il030/targetNozzle": 0,
+    "il030/targetBed": 0,
 
     "rasp05/Skid": 0,
     "rasp05/Retraction": 0,
