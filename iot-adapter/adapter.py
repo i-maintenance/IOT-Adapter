@@ -153,8 +153,8 @@ def mqtt_to_sensorthings(msg):
     datapoint["quantity"] = msg.topic
     try:
         payload = json.loads(msg.payload.decode("utf-8"))
-    except:
-        logger.warning("Couldn't parse message")
+    except Exception as e:
+        logger.warning("Couldn't parse message: {}".format(e))
         return
 
     if type(payload) in [type(0), type(0.0)]:
