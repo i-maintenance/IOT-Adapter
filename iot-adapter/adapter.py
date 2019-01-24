@@ -61,16 +61,16 @@ producer = Producer(**conf)
 logger = logging.getLogger('iot-adapter.logging')
 logger.setLevel(os.getenv('LOG_LEVEL', logging.INFO))
 console_logger = logging.StreamHandler(stream=sys.stdout)
-console_logger.setFormatter(logging.Formatter(logging.BASIC_FORMAT))
+console_logger.setFormatter(logging.Formatter("%(asctime)-15s %(levelname)s %(name)s %(filename)s:%(lineno)d %(message)s"))
 logstash_handler = TCPLogstashHandler(host=LOGSTASH_HOST, port=LOGSTASH_PORT, version=1)
 [logger.addHandler(l) for l in [console_logger, logstash_handler]]
 logger.info('Sending logstash to %s:%d', logstash_handler.host, logstash_handler.port)
 
-ch = logging.StreamHandler(sys.stdout)
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-logger.addHandler(ch)
+#ch = logging.StreamHandler(sys.stdout)
+#ch.setLevel(logging.DEBUG)
+#formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#ch.setFormatter(formatter)
+#logger.addHandler(ch)
 
 logger.info("Starting the logstash adapter with the settings: MQTT_BROKER: {} , MQTT_PORT: {} , KAFKA_TOPIC: {} ,"
             "BOOTSTRAP_SERVERS_default: {} , KAFKA_GROUP_ID: {} , LOGSTASH_HOST: {} , LOGSTASH_PORT: {}"
